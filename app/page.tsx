@@ -1,22 +1,29 @@
 'use client';
 
+import Header from './components/Header';
+import Hero from './components/Hero';
+import Services from './components/Services';
+import FeaturedWork from './components/FeaturedWork';
+import Process from './components/Process';
+import WhyCantrell from './components/WhyCantrell';
+import Pricing from './components/Pricing';
+import CTABanner from './components/CTABanner';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-6">
-      <h1 className="text-5xl font-bold mb-6 text-center">
-        Cantrell Digital
-      </h1>
-
-      <p className="text-lg text-gray-300 max-w-xl text-center mb-8">
-        Modern websites built for performance, conversion, and scale.
-      </p>
-
-      <button
-        className="bg-white text-black px-6 py-3 rounded-xl font-semibold hover:scale-105 transition"
-        onClick={() => alert("Work in progress")}
-      >
-        Get Started
-      </button>
-    </main>
+    <div className="min-h-screen bg-black">
+      <Header />
+      <Hero />
+      <Services />
+      <FeaturedWork />
+      <Process />
+      <WhyCantrell />
+      <Pricing />
+      <CTABanner />
+      <Contact />
+      <Footer />
+    </div>
   );
 }
