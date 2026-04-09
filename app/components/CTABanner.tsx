@@ -1,16 +1,22 @@
 export default function CTABanner() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-purple-600">
+    <section className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-          Ready to Grow Your&apos; Business Online?
-        </h2>
-        <p className="text-xl text-white/90 mb-8">
-          Let&apos;s build a website that actually brings in customers and drives results.
+        <p className="mb-4 text-xs uppercase tracking-[0.28em] text-white/70 sm:text-sm">
+          Built with modern tools for speed, responsiveness, and maintainability
         </p>
-        <button className="bg-white text-black px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-200 hover:scale-105 shadow-lg">
+        <h2 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          Ready to Grow Your Business Online?
+        </h2>
+        <p className="mx-auto mb-8 max-w-2xl text-lg leading-8 text-white/90 sm:text-xl">
+          Let&apos;s create a site that feels refined, works hard, and gives your business room to grow.
+        </p>
+        <a
+          href="#contact"
+          className="inline-flex min-w-[220px] items-center justify-center rounded-xl bg-white px-8 py-4 text-lg font-semibold text-black shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+        >
           Get Started Today
-        </button>
+        </a>
       </div>
     </section>
   );

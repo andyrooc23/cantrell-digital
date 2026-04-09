@@ -15,18 +15,21 @@ const projects = [
 
 export default function FeaturedWork() {
   return (
-    <section id="work" className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
+    <section id="work" className="scroll-mt-24 bg-black px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-12">
+        <h2 className="mb-4 text-center text-3xl font-bold tracking-tight text-white sm:text-4xl">
           Featured Work
         </h2>
+        <p className="mx-auto mb-12 max-w-2xl text-center text-base leading-7 text-gray-300 sm:text-lg">
+          A snapshot of the kind of outcomes we aim for: stronger positioning, smoother user journeys, and websites that support real business momentum.
+        </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {projects.map((project, index) => (
-            <div key={index} className="bg-gray-800 p-8 rounded-xl hover:bg-gray-700 transition-colors duration-200">
-              <div className="text-sm text-gray-400 uppercase tracking-wide mb-2">{project.type}</div>
-              <p className="text-gray-300 mb-6">{project.summary}</p>
-              <button className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
+            <div key={index} className="flex h-full flex-col rounded-2xl border border-gray-800 bg-gray-800 p-8 transition-all duration-200 hover:-translate-y-1 hover:border-gray-700 hover:bg-gray-700">
+              <div className="mb-3 text-sm uppercase tracking-[0.16em] text-gray-400">{project.type}</div>
+              <p className="mb-8 text-gray-300 leading-7">{project.summary}</p>
+              <button className="mt-auto inline-flex items-center font-semibold text-blue-400 transition-colors duration-200 hover:text-blue-300">
                 View Project →
               </button>
             </div>

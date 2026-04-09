@@ -1,28 +1,34 @@
 export default function Hero() {
   return (
-    <section className="pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-black via-gray-900 to-black">
-      <div className="max-w-7xl mx-auto text-center">
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+    <section className="scroll-mt-24 bg-gradient-to-br from-black via-gray-900 to-black px-4 pt-24 pb-18 sm:px-6 sm:pt-28 sm:pb-24 lg:px-8">
+      <div className="max-w-7xl mx-auto text-center relative">
+        <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-6xl lg:text-7xl">
           Websites That Drive
           <span className="block bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
             Real Results
           </span>
         </h1>
 
-        <p className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto mb-8 leading-relaxed">
-          I build modern, high-performance websites that help businesses attract more customers and grow their online presence.
+        <p className="mx-auto mb-10 max-w-3xl text-lg leading-relaxed text-gray-300 sm:text-xl lg:text-2xl">
+          We design and build modern, high-performance websites that help ambitious businesses earn trust, attract customers, and grow online.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-          <button className="bg-white text-black px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all duration-200 hover:scale-105 shadow-lg">
+        <div className="mb-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a
+            href="#contact"
+            className="inline-flex min-w-[220px] items-center justify-center rounded-xl bg-white px-8 py-4 text-lg font-semibold text-black shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+          >
             Start Your Project
-          </button>
-          <button className="border border-gray-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-800 transition-all duration-200">
+          </a>
+          <a
+            href="#services"
+            className="inline-flex min-w-[220px] items-center justify-center rounded-xl border border-gray-600 px-8 py-4 text-lg font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+          >
             View Services
-          </button>
+          </a>
         </div>
 
-        <p className="text-sm text-gray-400">
+        <p className="text-sm tracking-[0.16em] uppercase text-gray-400">
           Built for speed, clarity, and conversion
         </p>
 
