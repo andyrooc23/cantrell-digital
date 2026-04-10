@@ -1,15 +1,15 @@
 const steps = [
   {
-    title: "Discover",
-    description: "We start by understanding your business goals, target audience, and current challenges to create a clear roadmap."
+    title: "Strategy",
+    description: "We clarify your offer, audience, priorities, and what the site needs to do so the build starts with direction instead of guesswork."
   },
   {
-    title: "Build",
-    description: "We design and develop your website using modern tools and thoughtful systems, keeping it fast, responsive, and conversion-focused."
+    title: "Design & Build",
+    description: "We write, design, and develop the site around clear messaging, clean structure, and a fast experience across desktop and mobile."
   },
   {
-    title: "Launch",
-    description: "We launch with care, test the details, and stay available so everything runs smoothly and keeps performing."
+    title: "Launch & Refine",
+    description: "Before launch we test the details, tighten the experience, and make sure you go live with a site that feels ready to represent the business."
   }
 ];
 
@@ -18,7 +18,7 @@ export default function Process() {
     <section id="process" className="scroll-mt-24 bg-gray-900 px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h2 className="mb-12 text-center text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          How We Work
+          How The Process Works
         </h2>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">

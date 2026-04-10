@@ -18,7 +18,7 @@ export default function Footer() {
           </nav>
 
           <div className="text-center text-sm text-gray-400">
-            © {currentYear} Cantrell Digital • cantrelldigital.dev
+            © {currentYear} Cantrell Digital • Websites for businesses that want to be taken seriously online
           </div>
         </div>
       </div>

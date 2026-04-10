@@ -1,4 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import constructionBlueprintImage from "@/public/images/demo/construction/construction-blueprint.jpg";
+import constructionWorkImage from "@/public/images/demo/construction/construction-work.jpeg";
+import constructionExteriorImage from "@/public/images/demo/construction/exterior.jpeg";
+import constructionHeroImage from "@/public/images/demo/construction/hero.jpeg";
+import constructionInteriorImage from "@/public/images/demo/construction/interior.jpeg";
 import {
   DemoButton,
   DemoFooter,
@@ -10,21 +16,21 @@ import {
 export const metadata: Metadata = {
   title: "Monarch Build Co. | Construction Demo",
   description:
-    "A premium construction company concept page for Cantrell Digital demos.",
+    "A premium construction company focused on custom homes, major renovations, and detail-driven project delivery.",
 };
 
 const services = [
   {
     title: "Custom Homes",
-    copy: "Ground-up residences engineered around site, light, and a demanding level of finish.",
+    copy: "Ground-up homes planned around site, lifestyle, and a finish standard that holds up under scrutiny.",
   },
   {
     title: "Luxury Renovations",
-    copy: "Whole-home transformations that preserve character while upgrading structure, flow, and performance.",
+    copy: "Whole-home remodels that improve flow, function, and livability without losing what made the home worth keeping.",
   },
   {
     title: "Commercial Spaces",
-    copy: "Clean, modern build-outs for firms that want their physical space to reflect their brand standards.",
+    copy: "Build-outs for firms that want a space that feels as considered, professional, and durable as the brand behind it.",
   },
 ];
 
@@ -32,17 +38,26 @@ const projects = [
   {
     title: "Ridge House",
     subtitle: "Concrete, cedar, and panoramic glazing above the valley line",
-    className: "min-h-[380px] bg-gradient-to-br from-[#5f6670] via-[#31363d] to-[#0c0d0f]",
+    className: "min-h-[380px]",
+    src: constructionExteriorImage,
+    alt: "Luxury hillside home with sharp architecture and expansive glazing",
+    imageClassName: "object-cover object-center",
   },
   {
     title: "Atelier Renovation",
     subtitle: "A historic shell opened into a gallery-like family home",
-    className: "min-h-[300px] bg-gradient-to-br from-[#bdb8b0] via-[#706b65] to-[#151515]",
+    className: "min-h-[300px]",
+    src: constructionInteriorImage,
+    alt: "Minimal interior renovation with warm finishes and clean lines",
+    imageClassName: "object-cover object-center",
   },
   {
-    title: "Mercer Office",
-    subtitle: "A restrained, hospitality-inspired workspace for a private advisory firm",
-    className: "min-h-[300px] bg-gradient-to-br from-[#8c8f95] via-[#4b4f55] to-[#111214]",
+    title: "Site Detail",
+    subtitle: "Build-phase craftsmanship documented with the same precision as the finished work",
+    className: "min-h-[300px]",
+    src: constructionWorkImage,
+    alt: "Construction detail showing premium residential build work in progress",
+    imageClassName: "object-cover object-center",
   },
 ];
 
@@ -50,17 +65,17 @@ const processSteps = [
   {
     step: "01",
     title: "Consult",
-    copy: "We define scope, align budgets, and establish a clear decision-making framework before design begins.",
+    copy: "We clarify scope, priorities, budget parameters, and decision-making early so the project starts on solid footing.",
   },
   {
     step: "02",
     title: "Design",
-    copy: "Selections, plans, and build strategy are refined into a precise roadmap that protects quality and timing.",
+    copy: "Plans, selections, and build strategy are refined into a practical roadmap that protects quality, timing, and expectations.",
   },
   {
     step: "03",
     title: "Build",
-    copy: "Execution is disciplined, communication stays proactive, and every finish is reviewed against a high standard.",
+    copy: "Execution stays disciplined, communication stays active, and every major finish is reviewed against the standard promised at the start.",
   },
 ];
 
@@ -92,41 +107,65 @@ export default function ConstructionDemoPage() {
         <div className="grid gap-12 pb-20 pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-16 lg:pb-28">
           <div>
             <p className="mb-5 text-sm uppercase tracking-[0.3em] text-white/45">
-              Construction company concept
+              Private construction firm
             </p>
             <h1 className="max-w-4xl text-5xl font-semibold uppercase tracking-[-0.04em] sm:text-6xl lg:text-8xl">
-              Built Without Compromise.
+              Built With Precision.
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-white/68 sm:text-lg">
-              A high-end construction brand concept designed to signal rigor,
-              trust, and restraint. The tone is quiet and confident, with a
-              portfolio-first structure built to appeal to private clients.
+              Monarch Build Co. delivers custom homes, major renovations, and carefully managed construction for clients who expect craftsmanship, clarity, and a process they can trust.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <DemoButton
                 href="#cta"
                 className="bg-[#f3f3ef] text-[#0b0b0c] hover:bg-white"
               >
-                Start Your Project
+                Request a Consultation
               </DemoButton>
               <DemoButton
                 href="#projects"
                 variant="outline"
                 className="border-white/15 text-white"
               >
-                View Projects
+                View Recent Work
               </DemoButton>
             </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-5 sm:col-span-2">
+              <div className="relative min-h-[23rem] overflow-hidden rounded-[1.6rem]">
+                <Image
+                  src={constructionHeroImage}
+                  alt="Modern luxury residence with dramatic architecture at dusk"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 flex flex-col gap-4 p-6 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.28em] text-white/55">
+                      Featured residence
+                    </p>
+                    <p className="mt-2 max-w-md text-3xl font-semibold tracking-tight">
+                      Custom residences built with architectural discipline and lasting material quality.
+                    </p>
+                  </div>
+                  <p className="max-w-xs text-sm leading-7 text-white/70">
+                    Every project is led with planning, executed with care, and finished to feel considered from first walkthrough to final detail.
+                  </p>
+                </div>
+              </div>
+            </div>
             <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-5">
               <p className="text-xs uppercase tracking-[0.28em] text-white/40">
                 Active regions
               </p>
               <p className="mt-4 text-4xl font-semibold tracking-tight">West Coast</p>
               <p className="mt-3 text-sm leading-7 text-white/60">
-                Serving private homes, substantial remodels, and select commercial spaces.
+                Serving custom homes, substantial renovations, and select commercial interiors across the West Coast.
               </p>
             </div>
             <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-5 sm:translate-y-10">
@@ -135,7 +174,7 @@ export default function ConstructionDemoPage() {
               </p>
               <p className="mt-4 text-4xl font-semibold tracking-tight">8-18 mo</p>
               <p className="mt-3 text-sm leading-7 text-white/60">
-                Structured timelines with communication touchpoints built into every phase.
+                Clear timelines, proactive updates, and structured milestones built into every phase.
               </p>
             </div>
           </div>
@@ -145,8 +184,8 @@ export default function ConstructionDemoPage() {
       <DemoSection id="services" className="pb-20 lg:pb-24">
         <DemoHeading
           eyebrow="Services"
-          title="Precision across ground-up builds, renovation, and commercial scope."
-          description="The services section uses clear hierarchy and disciplined spacing to make the company feel established, premium, and operationally sharp."
+          title="Construction services for clients who care about workmanship, communication, and finish quality."
+          description="Each offering is built around trust: clear scope, disciplined execution, and a final product that feels worthy of the investment."
         />
         <div className="mt-10 grid gap-px overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 lg:grid-cols-3">
           {services.map((service) => (
@@ -155,7 +194,7 @@ export default function ConstructionDemoPage() {
               className="bg-[#101113] p-8 transition duration-300 hover:bg-[#15171a]"
             >
               <p className="text-sm uppercase tracking-[0.28em] text-white/35">
-                Service
+                Offering
               </p>
               <h3 className="mt-8 text-3xl font-medium tracking-tight">
                 {service.title}
@@ -172,11 +211,11 @@ export default function ConstructionDemoPage() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <DemoHeading
             eyebrow="Portfolio"
-            title="Projects presented with restraint and scale."
-            description="Large, image-led cards are ideal for industries where proof of taste matters as much as proof of capability."
+            title="Selected work that shows range, restraint, and build quality."
+            description="For a premium construction firm, the portfolio has to do more than look good. It needs to communicate standards, taste, and confidence in execution."
           />
           <a href="#" className="text-sm uppercase tracking-[0.26em] text-white/55 transition hover:text-white">
-            Full portfolio
+            See all projects
           </a>
         </div>
         <div className="mt-10 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
@@ -184,6 +223,10 @@ export default function ConstructionDemoPage() {
             title={projects[0].title}
             subtitle={projects[0].subtitle}
             className={projects[0].className}
+            src={projects[0].src}
+            alt={projects[0].alt}
+            imageClassName={projects[0].imageClassName}
+            sizes="(max-width: 1024px) 100vw, 58vw"
             overlayClassName="from-white/10 via-transparent to-black/55"
           />
           <div className="grid gap-4">
@@ -191,12 +234,20 @@ export default function ConstructionDemoPage() {
               title={projects[1].title}
               subtitle={projects[1].subtitle}
               className={projects[1].className}
+              src={projects[1].src}
+              alt={projects[1].alt}
+              imageClassName={projects[1].imageClassName}
+              sizes="(max-width: 1024px) 100vw, 30vw"
               overlayClassName="from-white/10 via-transparent to-black/60"
             />
             <DemoImageCard
               title={projects[2].title}
               subtitle={projects[2].subtitle}
               className={projects[2].className}
+              src={projects[2].src}
+              alt={projects[2].alt}
+              imageClassName={projects[2].imageClassName}
+              sizes="(max-width: 1024px) 100vw, 30vw"
               overlayClassName="from-white/10 via-transparent to-black/60"
             />
           </div>
@@ -205,11 +256,47 @@ export default function ConstructionDemoPage() {
 
       <DemoSection className="border-y border-white/10 bg-white/[0.03] py-20 lg:py-24">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <DemoHeading
-            eyebrow="Process"
-            title="A measured process that reduces friction and keeps quality visible."
-            description="For service brands, process is part of the product. This layout makes the workflow feel tangible and easy to trust."
-          />
+          <div className="space-y-6">
+            <DemoHeading
+              eyebrow="Process"
+              title="A process built to keep decisions clear and quality visible from day one."
+              description="Clients should know what happens next, what decisions matter, and how the project is being managed. The workflow is structured to create calm, not confusion."
+            />
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="relative min-h-[250px] overflow-hidden rounded-[2rem] border border-white/10">
+                <Image
+                  src={constructionBlueprintImage}
+                  alt="Architectural blueprint spread across a construction planning table"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 20vw"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <p className="text-xs uppercase tracking-[0.28em] text-white/55">
+                    Planning
+                  </p>
+                  <p className="mt-2 text-xl font-medium">Decisions documented before work begins on site.</p>
+                </div>
+              </div>
+              <div className="relative min-h-[250px] overflow-hidden rounded-[2rem] border border-white/10">
+                <Image
+                  src={constructionWorkImage}
+                  alt="Craftsmanship detail captured during a residential construction phase"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 20vw"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <p className="text-xs uppercase tracking-[0.28em] text-white/55">
+                    Execution
+                  </p>
+                  <p className="mt-2 text-xl font-medium">Site execution reviewed against the same standard as the final reveal.</p>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="space-y-4">
             {processSteps.map((step) => (
               <article
@@ -236,8 +323,8 @@ export default function ConstructionDemoPage() {
       <DemoSection className="py-20 lg:py-24">
         <DemoHeading
           eyebrow="Client Notes"
-          title="Social proof with a private-client tone."
-          description="The testimonials stay polished and understated so they support the brand instead of making it feel salesy."
+          title="What clients remember most: calm communication and high standards."
+          description="The right testimonial language reinforces trust, professionalism, and the feeling that the project was handled with real care."
         />
         <div className="mt-10 grid gap-4 lg:grid-cols-2">
           {testimonials.map((testimonial) => (
@@ -260,10 +347,10 @@ export default function ConstructionDemoPage() {
           <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <p className="text-xs uppercase tracking-[0.28em] text-black/45">
-                Start Your Project
+                Start a Conversation
               </p>
               <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-                Bring a private residence or renovation to a team that values discipline.
+                Bring your home or renovation to a team that takes the details seriously.
               </h2>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -278,7 +365,7 @@ export default function ConstructionDemoPage() {
                 variant="outline"
                 className="border-black/15 text-[#0b0b0c]"
               >
-                Review Work
+                Review Projects
               </DemoButton>
             </div>
           </div>

@@ -1,3 +1,4 @@
+import Image, { type StaticImageData } from "next/image";
 import type { ReactNode } from "react";
 
 type DemoSectionProps = {
@@ -26,6 +27,11 @@ type DemoImageCardProps = {
   subtitle?: string;
   className?: string;
   overlayClassName?: string;
+  src?: string | StaticImageData;
+  alt?: string;
+  sizes?: string;
+  imageClassName?: string;
+  priority?: boolean;
 };
 
 function cn(...classes: Array<string | false | null | undefined>) {
@@ -129,6 +135,11 @@ export function DemoImageCard({
   subtitle,
   className,
   overlayClassName,
+  src,
+  alt = "",
+  sizes = "100vw",
+  imageClassName,
+  priority = false,
 }: DemoImageCardProps) {
   return (
     <div
@@ -137,6 +148,19 @@ export function DemoImageCard({
         className,
       )}
     >
+      {src ? (
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority={priority}
+          sizes={sizes}
+          className={cn(
+            "object-cover transition duration-700 group-hover:scale-105",
+            imageClassName,
+          )}
+        />
+      ) : null}
       <div
         className={cn(
           "absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-black/30 transition duration-500 group-hover:scale-105",

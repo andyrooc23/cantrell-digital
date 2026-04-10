@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 const navItems = [
@@ -77,7 +78,7 @@ export default function Header() {
                 aria-expanded={isDemosOpen}
                 aria-haspopup="menu"
               >
-                Demos
+                Industry Demos
                 <svg
                   className={`h-4 w-4 transition-transform duration-200 ${isDemosOpen ? 'rotate-180' : ''}`}
                   viewBox="0 0 20 20"
@@ -118,12 +119,12 @@ export default function Header() {
           </nav>
 
           <div className="hidden md:block">
-            <a
-              href="#contact"
+            <Link
+              href="/start-project"
               className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-2.5 font-semibold text-black transition-all duration-200 hover:-translate-y-0.5 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             >
               Start Your Project
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -155,7 +156,7 @@ export default function Header() {
               ))}
               <div className="space-y-3 rounded-2xl border border-gray-800 bg-gray-950/70 p-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">
-                  Demo Pages
+                  Industry Demos
                 </p>
                 {demoItems.map((item) => (
                   <a
@@ -171,13 +172,13 @@ export default function Header() {
                   </a>
                 ))}
               </div>
-              <a
-                href="#contact"
+              <Link
+                href="/start-project"
                 className="inline-flex items-center justify-center self-start rounded-xl bg-white px-5 py-3 font-semibold text-black transition-all duration-200 hover:-translate-y-0.5 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Start Your Project
-              </a>
+              </Link>
             </nav>
           </div>
         )}

@@ -1,19 +1,19 @@
 const services = [
   {
-    title: "Custom Website Design",
-    description: "Tailored websites built from the ground up to match your brand and business goals."
+    title: "Custom Business Websites",
+    description: "For businesses that need a credible online presence, a clear offer, and a site built around how customers actually decide."
   },
   {
-    title: "Website Refresh & Optimization",
-    description: "Modernize existing sites with improved design, speed, and user experience."
+    title: "Website Refreshes",
+    description: "For brands with an outdated site, unclear messaging, or a design that no longer matches the quality of the business."
   },
   {
-    title: "Landing Pages That Convert",
-    description: "High-converting landing pages designed to turn visitors into customers."
+    title: "Conversion-Focused Landing Pages",
+    description: "For launches, ads, and campaigns that need a focused page with a clear message, strong structure, and one job to do."
   },
   {
-    title: "Ongoing Website Maintenance",
-    description: "Regular updates, security monitoring, and performance optimization."
+    title: "Ongoing Website Support",
+    description: "For owners who want updates handled, performance watched, and their site kept sharp after launch."
   }
 ];
 
@@ -22,10 +22,10 @@ export default function Services() {
     <section id="services" className="scroll-mt-24 bg-gray-900 px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h2 className="mb-4 text-center text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          Services
+          What We Do
         </h2>
         <p className="mx-auto mb-12 max-w-2xl text-center text-base leading-7 text-gray-300 sm:text-lg">
-          We shape each engagement around your goals, whether you need a focused launch, a strategic refresh, or long-term website support.
+          Whether you need a full site, a strategic refresh, or a single page built to convert, the work is scoped around your goals, audience, and growth stage.
         </p>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
