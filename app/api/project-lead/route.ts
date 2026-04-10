@@ -12,8 +12,77 @@ import {
   type ProjectLeadSubmission,
 } from '@/lib/projectRecommendation';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 const leadRecipient = 'andrew@cantrelldigital.dev';
 const routeLabel = 'project-lead';
+const resendApiUrl = 'https://api.resend.com/emails';
+const resendRequestTimeoutMs = 15_000;
+
+function createRequestId() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function getDebugModeEnabled() {
+  return process.env.PROJECT_LEAD_DEBUG === 'true';
+}
+
+function getServerEnv(name: string) {
+  const value = process.env[name];
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+function logInfo(requestId: string, message: string, metadata?: unknown) {
+  console.log(`[api/${routeLabel}] [${requestId}] ${message}`, metadata ?? '');
+}
+
+function logWarn(requestId: string, message: string, metadata?: unknown) {
+  console.warn(`[api/${routeLabel}] [${requestId}] ${message}`, metadata ?? '');
+}
+
+function logError(requestId: string, message: string, metadata?: unknown) {
+  console.error(`[api/${routeLabel}] [${requestId}] ${message}`, metadata ?? '');
+}
+
+function logDebugState(requestId: string) {
+  if (!getDebugModeEnabled()) {
+    return;
+  }
+
+  logInfo(requestId, 'Debug environment check', {
+    nodeEnv: process.env.NODE_ENV ?? 'unknown',
+    resendApiKeyPresent: Boolean(getServerEnv('RESEND_API_KEY')),
+    resendFromEmailPresent: Boolean(getServerEnv('RESEND_FROM_EMAIL')),
+    runningInAmplify: Boolean(process.env.AWS_APP_ID || process.env.AWS_BRANCH),
+  });
+}
+
+function safeErrorMessage(error: unknown) {
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+
+  return 'Unknown error';
+}
+
+async function readResponseBody(response: Response) {
+  const text = await response.text();
+
+  if (!text) {
+    return { rawText: '', parsedBody: null as unknown };
+  }
+
+  try {
+    return { rawText: text, parsedBody: JSON.parse(text) as unknown };
+  } catch {
+    return { rawText: text, parsedBody: null as unknown };
+  }
+}
 
 function normalizeString(value: unknown) {
   return typeof value === 'string' ? value.trim() : '';
@@ -221,90 +290,165 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  console.log(`[api/${routeLabel}] ${request.method} request received`);
-
-  let payload: unknown;
-
   try {
-    payload = await request.json();
-  } catch {
-    console.warn(`[api/${routeLabel}] Invalid JSON body`);
+    const requestId = createRequestId();
+    const contentType = request.headers.get('content-type') ?? 'unknown';
+
+    logInfo(requestId, `${request.method} request received`, { contentType });
+    logDebugState(requestId);
+
+    let payload: unknown;
+
+    try {
+      payload = await request.json();
+      logInfo(requestId, 'Request body parsed successfully');
+    } catch (error) {
+      logWarn(requestId, 'Invalid JSON body', { error: safeErrorMessage(error) });
+      return NextResponse.json(
+        {
+          ok: false,
+          route: routeLabel,
+          requestId,
+          error: 'The request body must be valid JSON.',
+        },
+        { status: 400 },
+      );
+    }
+
+    const validated = validateSubmission(payload);
+
+    if (!validated.success) {
+      logWarn(requestId, 'Validation failed', validated.errors);
+      return NextResponse.json(
+        {
+          ok: false,
+          route: routeLabel,
+          requestId,
+          error: 'Please complete the required fields.',
+          details: validated.errors,
+        },
+        { status: 400 },
+      );
+    }
+
+    const resendApiKey = getServerEnv('RESEND_API_KEY');
+
+    if (!resendApiKey) {
+      logError(requestId, 'Missing required server environment variable', {
+        missing: ['RESEND_API_KEY'],
+      });
+      return NextResponse.json(
+        {
+          ok: false,
+          route: routeLabel,
+          requestId,
+          error:
+            'Email delivery is not configured on the server. Missing RESEND_API_KEY.',
+          missingEnv: ['RESEND_API_KEY'],
+        },
+        { status: 500 },
+      );
+    }
+
+    const resendFromEmail =
+      getServerEnv('RESEND_FROM_EMAIL') ||
+      'Cantrell Digital Leads <onboarding@resend.dev>';
+    const lead = validated.data;
+    const subject = `New website lead: ${lead.businessName || lead.name}`;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), resendRequestTimeoutMs);
+
+    let emailResponse: Response;
+
+    try {
+      logInfo(requestId, 'Sending email through Resend', {
+        to: leadRecipient,
+        replyTo: lead.email,
+        fromConfigured: Boolean(getServerEnv('RESEND_FROM_EMAIL')),
+      });
+
+      emailResponse = await fetch(resendApiUrl, {
+        method: 'POST',
+        cache: 'no-store',
+        headers: {
+          Authorization: `Bearer ${resendApiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: resendFromEmail,
+          to: [leadRecipient],
+          reply_to: lead.email,
+          subject,
+          text: buildEmailText(lead),
+          html: buildEmailHtml(lead),
+        }),
+        signal: controller.signal,
+      });
+    } catch (error) {
+      const message =
+        error instanceof Error && error.name === 'AbortError'
+          ? `Resend request timed out after ${resendRequestTimeoutMs}ms.`
+          : safeErrorMessage(error);
+
+      logError(requestId, 'Failed to reach Resend API', { error: message });
+
+      return NextResponse.json(
+        {
+          ok: false,
+          route: routeLabel,
+          requestId,
+          error: 'Unable to send the email notification.',
+          details: message,
+        },
+        { status: 502 },
+      );
+    } finally {
+      clearTimeout(timeout);
+    }
+
+    const { rawText, parsedBody } = await readResponseBody(emailResponse);
+
+    if (!emailResponse.ok) {
+      logError(requestId, 'Email provider rejected request', {
+        status: emailResponse.status,
+        statusText: emailResponse.statusText,
+        providerResponse: parsedBody ?? rawText,
+      });
+
+      return NextResponse.json(
+        {
+          ok: false,
+          route: routeLabel,
+          requestId,
+          error: 'The lead was validated, but the email provider rejected it.',
+          providerStatus: emailResponse.status,
+          providerResponse: parsedBody ?? rawText,
+        },
+        { status: 502 },
+      );
+    }
+
+    logInfo(requestId, 'Lead email accepted by provider', parsedBody ?? rawText);
+
+    return NextResponse.json({
+      ok: true,
+      route: routeLabel,
+      requestId,
+      message: 'Lead submitted successfully.',
+    });
+  } catch (error) {
+    const requestId = createRequestId();
+
+    logError(requestId, 'Unhandled route failure', { error: safeErrorMessage(error) });
+
     return NextResponse.json(
       {
         ok: false,
         route: routeLabel,
-        error: 'The request body must be valid JSON.',
-      },
-      { status: 400 },
-    );
-  }
-
-  const validated = validateSubmission(payload);
-
-  if (!validated.success) {
-    console.warn(`[api/${routeLabel}] Validation failed`, validated.errors);
-    return NextResponse.json(
-      {
-        ok: false,
-        route: routeLabel,
-        error: 'Please complete the required fields.',
-        details: validated.errors,
-      },
-      { status: 400 },
-    );
-  }
-
-  const resendApiKey = process.env.RESEND_API_KEY;
-
-  if (!resendApiKey) {
-    console.warn(`[api/${routeLabel}] Missing RESEND_API_KEY`);
-    return NextResponse.json(
-      {
-        ok: false,
-        route: routeLabel,
-        error:
-          'Email delivery is not configured. Add RESEND_API_KEY to enable submissions.',
+        requestId,
+        error: 'An unexpected server error occurred while processing the lead.',
       },
       { status: 500 },
     );
   }
-
-  const lead = validated.data;
-  const subject = `New website lead: ${lead.businessName || lead.name}`;
-  const emailResponse = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${resendApiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      from:
-        process.env.RESEND_FROM_EMAIL ??
-        'Cantrell Digital Leads <onboarding@resend.dev>',
-      to: [leadRecipient],
-      reply_to: lead.email,
-      subject,
-      text: buildEmailText(lead),
-      html: buildEmailHtml(lead),
-    }),
-  });
-
-  if (!emailResponse.ok) {
-    const errorText = await emailResponse.text();
-    console.error(`[api/${routeLabel}] Email provider rejected request`, errorText);
-
-    return NextResponse.json(
-      {
-        ok: false,
-        route: routeLabel,
-        error: 'The lead was validated, but the email provider rejected it.',
-        providerMessage: errorText,
-      },
-      { status: 502 },
-    );
-  }
-
-  console.log(`[api/${routeLabel}] Lead email accepted by provider`);
-
-  return NextResponse.json({ ok: true, route: routeLabel });
 }
