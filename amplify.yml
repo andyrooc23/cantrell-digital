@@ -1,0 +1,21 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - '[ -n "$RESEND_API_KEY" ] || (echo "Missing RESEND_API_KEY in Amplify build environment" >&2; exit 1)'
+        - '[ -n "$RESEND_FROM_EMAIL" ] || (echo "Missing RESEND_FROM_EMAIL in Amplify build environment" >&2; exit 1)'
+        - env | grep -e '^RESEND_API_KEY=' -e '^RESEND_FROM_EMAIL=' -e '^PROJECT_LEAD_DEBUG=' > .env.production
+        - env | grep -e '^NEXT_PUBLIC_' >> .env.production || true
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*
