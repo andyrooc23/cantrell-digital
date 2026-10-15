@@ -1,3 +1,4 @@
+import { DemoFrame } from '@/components/site/DemoFrame';
 import type { Metadata } from "next";
 import Image from "next/image";
 import constructionBlueprintImage from "@/public/images/demo/construction/construction-blueprint.jpg";
@@ -14,9 +15,9 @@ import {
 } from "../components/DemoPrimitives";
 
 export const metadata: Metadata = {
-  title: "Monarch Build Co. | Construction Demo",
+  title: "Monarch Build Co. | Construction Concept",
   description:
-    "A premium construction company focused on custom homes, major renovations, and detail-driven project delivery.",
+    "Self-initiated, AI-assisted concept. A premium construction company focused on custom homes, major renovations, and detail-driven project delivery.",
 };
 
 const services = [
@@ -79,24 +80,15 @@ const processSteps = [
   },
 ];
 
-const testimonials = [
-  {
-    quote:
-      "Monarch brought the calmest process we’ve ever experienced on a high-stakes build. Every detail felt deliberate.",
-    name: "Claire M.",
-    role: "Private Residence Client",
-  },
-  {
-    quote:
-      "Minimal, rigorous, and deeply organized. They built our renovation exactly the way they presented it.",
-    name: "Nathan R.",
-    role: "Whole-Home Remodel",
-  },
+const projectPrinciples = [
+ {copy:'Define the project requirements, then make the next decision visible. A structured brief helps the visitor understand how work could begin.',title:'Clear communication',note:'Concept process principle'},
+ {copy:'Give materials, architectural details, and service scope room to be understood. Project imagery supports the explanation rather than standing in for it.',title:'Attention to detail',note:'Concept design principle'},
 ];
 
 export default function ConstructionDemoPage() {
   return (
     <main className="min-h-screen bg-[#0b0b0c] text-[#f3f3ef]">
+      <DemoFrame slug="construction" title="Construction studio"/>
       <DemoSection className="relative overflow-hidden pt-6 sm:pt-8">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.06),transparent_30%)]" />
         <div className="flex items-center justify-between rounded-full border border-white/10 bg-white/5 px-4 py-3 text-xs uppercase tracking-[0.24em] text-white/65 backdrop-blur sm:px-6">
@@ -322,21 +314,21 @@ export default function ConstructionDemoPage() {
 
       <DemoSection className="py-20 lg:py-24">
         <DemoHeading
-          eyebrow="Client Notes"
-          title="What clients remember most: calm communication and high standards."
-          description="The right testimonial language reinforces trust, professionalism, and the feeling that the project was handled with real care."
+          eyebrow="Project principles"
+          title="A clear process deserves a clear explanation."
+          description="This concept explores how communication and project detail can establish a considered first impression."
         />
         <div className="mt-10 grid gap-4 lg:grid-cols-2">
-          {testimonials.map((testimonial) => (
+          {projectPrinciples.map((principle) => (
             <article
-              key={testimonial.name}
+              key={principle.title}
               className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8"
             >
-              <p className="text-lg leading-8 text-white/80">“{testimonial.quote}”</p>
+              <p className="text-lg leading-8 text-white/80">{principle.copy}</p>
               <p className="mt-8 text-sm font-medium uppercase tracking-[0.24em] text-white/45">
-                {testimonial.name}
+                {principle.title}
               </p>
-              <p className="mt-2 text-sm text-white/55">{testimonial.role}</p>
+              <p className="mt-2 text-sm text-white/55">{principle.note}</p>
             </article>
           ))}
         </div>
@@ -381,6 +373,7 @@ export default function ConstructionDemoPage() {
           { label: "Process", href: "#cta" },
         ]}
       />
+      <DemoFrame slug="construction" title="Construction studio" bottom/>
     </main>
   );
 }

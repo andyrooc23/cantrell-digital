@@ -27,10 +27,10 @@ export default function LegalPage({ eyebrow, title, summary, children }: LegalPa
 
       <article className="mx-auto max-w-4xl px-5 py-14 sm:px-8 sm:py-20">
         <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#5d8068]">{eyebrow}</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#486951]">{eyebrow}</p>
           <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">{title}</h1>
           <p className="mt-5 text-lg leading-8 text-[#5e6c64]">{summary}</p>
-          <p className="mt-4 text-sm text-[#738078]">Effective September 22, 2026</p>
+          <p className="mt-4 text-sm text-[#5e6c64]">Effective September 22, 2026</p>
         </div>
 
         <div className="mt-12 space-y-10 text-[1.02rem] leading-8 text-[#35433b] [&_a]:font-medium [&_a]:text-[#42634d] [&_a]:underline [&_a]:underline-offset-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_li]:pl-1 [&_p]:mt-3 [&_ul]:mt-3 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6">

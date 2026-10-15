@@ -1,9 +1,23 @@
 import type { Metadata } from "next";
+import { siteOrigin } from "@/lib/siteMetadata";
 import "./globals.css";
+import { Manrope, Newsreader } from "next/font/google";
+const bodyFont = Manrope({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
+const displayFont = Newsreader({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Cantrell Digital - Modern Websites for Growing Businesses",
-  description: "Professional website design and development services. Build high-performance, conversion-focused websites that drive real business results.",
+  title: "Cantrell Digital — Thoughtful websites for growing businesses",
+  metadataBase: new URL(siteOrigin),
+  description:
+    "Website strategy, design, and development for growing businesses.",
 };
 
 export default function RootLayout({
@@ -12,7 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html
+      lang="en"
+      className={`h-full antialiased ${bodyFont.variable} ${displayFont.variable}`}
+    >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

@@ -1,3 +1,4 @@
+import { DemoFrame } from '@/components/site/DemoFrame';
 import type { Metadata } from "next";
 import {
   DemoButton,
@@ -8,9 +9,9 @@ import {
 } from "../components/DemoPrimitives";
 
 export const metadata: Metadata = {
-  title: "After/Hours | Streetwear Demo",
+  title: "After/Hours | Streetwear Concept",
   description:
-    "A bold streetwear label built around limited drops, strong identity, and campaign-driven product releases.",
+    "Self-initiated, AI-assisted concept. A bold streetwear label built around limited drops, strong identity, and campaign-driven product releases.",
 };
 
 const featuredProducts = [
@@ -50,6 +51,7 @@ const collections = [
 export default function StreetwearDemoPage() {
   return (
     <main className="min-h-screen bg-[#050505] text-white">
+      <DemoFrame slug="streetwear" title="Independent streetwear"/>
       <DemoSection className="overflow-hidden pt-6 sm:pt-8">
         <div className="flex items-center justify-between border border-white/10 bg-white/5 px-4 py-3 text-[11px] uppercase tracking-[0.28em] text-white/60 backdrop-blur sm:px-6">
           <span>After/Hours</span>
@@ -310,6 +312,7 @@ export default function StreetwearDemoPage() {
           { label: "Newsletter", href: "#" },
         ]}
       />
+      <DemoFrame slug="streetwear" title="Independent streetwear" bottom/>
     </main>
   );
 }

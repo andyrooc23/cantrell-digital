@@ -17,7 +17,7 @@ export default function SupportDevelopmentPage() {
         <div className="mt-14 grid h-14 w-14 place-items-center rounded-full bg-[#dce9df] text-2xl text-[#42634d]" aria-hidden="true">
           ☕
         </div>
-        <p className="mt-8 text-sm font-semibold uppercase tracking-[0.2em] text-[#5d8068]">Optional support</p>
+        <p className="mt-8 text-sm font-semibold uppercase tracking-[0.2em] text-[#486951]">Optional support</p>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">Support Mindful Eating</h1>
         <p className="mt-6 text-lg leading-8 text-[#5e6c64]">
           Mindful Eating is free to use. If it has been helpful and you would like to support continued development, you can leave an optional tip through Buy Me a Coffee.
@@ -35,7 +35,7 @@ export default function SupportDevelopmentPage() {
           >
             Support on Buy Me a Coffee
           </a>
-          <p className="mt-5 text-sm leading-6 text-[#738078]">
+          <p className="mt-5 text-sm leading-6 text-[#5e6c64]">
             This opens Buy Me a Coffee in a new tab. Buy Me a Coffee and its payment processor handle any information you choose to provide there. No Mindful Eating app entries or identifiers are included in the link.
           </p>
         </div>

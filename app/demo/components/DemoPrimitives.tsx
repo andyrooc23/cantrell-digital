@@ -86,7 +86,7 @@ export function DemoButton({
 }: DemoButtonProps) {
   const styles = {
     solid:
-      "bg-current text-black shadow-[0_18px_60px_-24px_rgba(0,0,0,0.55)] hover:-translate-y-1 hover:opacity-90",
+      "bg-white text-black shadow-[0_18px_60px_-24px_rgba(0,0,0,0.55)] hover:-translate-y-1 hover:opacity-90",
     outline:
       "border border-current/20 bg-transparent text-current hover:-translate-y-1 hover:bg-current/5",
     ghost: "bg-white/10 text-current hover:-translate-y-1 hover:bg-white/15",
@@ -97,7 +97,7 @@ export function DemoButton({
       href={href}
       className={cn(
         "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition duration-300",
-        styles[variant],
+        variant === "solid" && className ? "shadow-[0_18px_60px_-24px_rgba(0,0,0,0.55)] hover:-translate-y-1 hover:opacity-90" : styles[variant],
         className,
       )}
     >

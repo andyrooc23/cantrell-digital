@@ -1,3 +1,4 @@
+import { DemoFrame } from '@/components/site/DemoFrame';
 import type { Metadata } from "next";
 import Image from "next/image";
 import cafeCoffeeImage from "@/public/images/demo/cafe/coffee.jpeg";
@@ -15,9 +16,9 @@ import {
 } from "../components/DemoPrimitives";
 
 export const metadata: Metadata = {
-  title: "Juniper & Pine | Cafe Demo",
+  title: "Juniper & Pine | Cafe Concept",
   description:
-    "A warm neighborhood cafe with a curated retail shop, live music nights, and an inviting local feel.",
+    "Self-initiated, AI-assisted concept. A warm neighborhood cafe with a curated retail shop, live music nights, and an inviting local feel.",
 };
 
 const categories = [
@@ -99,6 +100,7 @@ const gallery = [
 export default function CafeDemoPage() {
   return (
     <main className="min-h-screen bg-[#f6efe7] text-[#3e3129]">
+      <DemoFrame slug="cafe" title="Independent cafe"/>
       <DemoSection className="relative overflow-hidden pt-6 sm:pt-8">
         <div className="absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top,_rgba(219,182,141,0.45),_transparent_52%)]" />
         <div className="flex items-center justify-between rounded-full border border-[#cdb59a] bg-white/70 px-4 py-3 text-xs uppercase tracking-[0.24em] text-[#6c5748] shadow-[0_14px_40px_-24px_rgba(80,55,35,0.45)] backdrop-blur sm:px-6">
@@ -133,9 +135,9 @@ export default function CafeDemoPage() {
               </DemoButton>
             </div>
             <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              <DemoStat label="Beans From Regional Roasters" value="92%" />
-              <DemoStat label="Community Nights Each Month" value="18" />
-              <DemoStat label="Window Seats Worth Claiming" value="14" />
+              <DemoStat label="A considered coffee bar" value="Coffee" />
+              <DemoStat label="Space for neighborhood gatherings" value="Community" />
+              <DemoStat label="A place to pause" value="Stay awhile" />
             </div>
           </div>
 
@@ -400,6 +402,7 @@ export default function CafeDemoPage() {
           { label: "Visit", href: "#visit" },
         ]}
       />
+      <DemoFrame slug="cafe" title="Independent cafe" bottom/>
     </main>
   );
 }
