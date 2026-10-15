@@ -20,7 +20,7 @@ export default function PrivacyPolicyPage() {
 
       <section>
         <h2>Information you enter</h2>
-        <p>The app lets you record an optional preferred name, current and historical weight, fullness levels before and after meals, wake-up and bedtime fullness levels, and the dates and times associated with those entries.</p>
+        <p>The app lets you record an optional preferred name, current and historical weight, optional free-text descriptions of what you ate, fullness levels before and after meals, wake-up and bedtime fullness levels, and the dates and times associated with those entries.</p>
       </section>
 
       <section>

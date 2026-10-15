@@ -32,7 +32,7 @@ export default function MindfulEatingPage() {
           <div className="grid h-14 w-14 place-items-center rounded-full bg-[#dce9df] text-xl text-[#42634d]" aria-hidden="true">●</div>
           <h1 className="mt-6 text-5xl font-semibold tracking-tight sm:text-6xl">Mindful Eating</h1>
           <p className="mt-6 text-xl leading-8 text-[#5e6c64]">
-            A private iOS journal for noticing fullness around meals, mornings, and bedtime—without accounts, ads, or tracking.
+            A private iOS journal for recording what you ate and noticing fullness around meals, mornings, and bedtime—without accounts, ads, or tracking.
           </p>
         </div>
 
