@@ -142,3 +142,18 @@ test("attempt limiter caps requests and expires without retaining raw addresses"
   assert.equal(allowLeadAttempt(email, 1001), false);
   assert.equal(allowLeadAttempt(email, 601001), true);
 });
+
+test("public website origin reaches validation behind an internal proxy URL", async () => {
+  const proxied = new Request(
+    "http://internal-amplify-host:3000/api/project-lead",
+    {
+      method: "POST",
+      headers: {
+        Origin: "https://www.cantrelldigital.dev",
+        "Content-Type": "application/json",
+      },
+      body: "{}",
+    },
+  );
+  assert.equal((await POST(proxied)).status, 400);
+});

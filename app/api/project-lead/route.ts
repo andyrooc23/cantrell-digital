@@ -1,3 +1,4 @@
+import { isAllowedLeadOrigin } from "@/lib/leadOrigin";
 import { NextResponse } from "next/server";
 import { allowLeadAttempt } from "@/lib/leadAbuse";
 import {
@@ -195,10 +196,7 @@ export async function POST(request: Request) {
     let payload: unknown;
 
     try {
-      if (
-        request.headers.get("origin") &&
-        request.headers.get("origin") !== new URL(request.url).origin
-      ) {
+      if (!isAllowedLeadOrigin(request)) {
         return NextResponse.json(
           { ok: false, error: "This request could not be accepted." },
           { status: 403 },
